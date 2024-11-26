@@ -9,7 +9,7 @@ def find_spots_cv2(frame):
     # Brightest spot
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     _, _, _, max_bright = cv2.minMaxLoc(gray)
-    cv2.circle(frame, max_bright, 7, (255, 0, 0), 2)
+    cv2.circle(frame, max_bright, 10, (255, 0, 0), 2)
 
     # Reddest spot
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -26,7 +26,7 @@ def find_spots_cv2(frame):
     v_channel = hsv[:, :, 2]
     red_intensity = cv2.bitwise_and(v_channel, v_channel, mask=red_mask)
     _, _, _, max_red = cv2.minMaxLoc(red_intensity)
-    cv2.circle(frame, max_red, 7, (0, 0, 255), 2)
+    cv2.circle(frame, max_red, 10, (0, 0, 255), 2)
 
 
 def find_max_brightness_pixels(frame):
@@ -36,7 +36,7 @@ def find_max_brightness_pixels(frame):
         for j in range(0, gray.shape[1]):
             if gray[i, j] > gray[max_bright[0], max_bright[1]]:
                 max_bright = (i, j)
-    cv2.circle(frame, max_bright, 7, (255, 0, 0), 2)
+    cv2.circle(frame, max_bright, 10, (255, 0, 0), 2)
 
 
 def find_max_red_pixels(frame):
@@ -54,7 +54,7 @@ def find_max_red_pixels(frame):
             if (in_lower_red or in_upper_red) and v > max_red:
                 max_red = v
                 max_red_loc = (i, j)
-    cv2.circle(frame, max_red_loc, 7, (0, 0, 255), 2)
+    cv2.circle(frame, max_red_loc, 10, (0, 0, 255), 2)
 
 
 def main():
@@ -70,7 +70,7 @@ def main():
 
         elapsed = time.time() - ts
         cv2.putText(frame, f"{1 / elapsed:.0f} FPS", (10, 50),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0))
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0))
         print(elapsed)
         cv2.imshow('frame', frame)
 
